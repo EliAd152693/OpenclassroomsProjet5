@@ -1,0 +1,3 @@
+select top(50000) Id, ViewCount, Body, Title, Tags, Score
+from Posts
+where ViewCount > 10000 and Score > 100
