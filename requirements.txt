@@ -4,6 +4,4 @@ joblib
 pandas
 numpy
 gensim
-gensim.utils 
-sklearn.feature_extraction.text
 sklearn
