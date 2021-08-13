@@ -1,0 +1,24 @@
+<!doctype html>
+<html>
+
+<head>
+	<title>Projet 5</title>
+	<link rel="stylesheet" href="{{ url_for('static',
+		filename='style.css') }}">
+</head>
+
+<body>
+	<h3>Your question:</h3>
+
+	<div>{{ content }}</div>
+	<h3>Prediction:</h3>
+	<div>Tags : <strong>{{ prediction }}</strong></div>
+
+	<div id='button'>
+		<form action="/">
+			<input type=submit value='Try again'>
+		</form>
+	</div>
+</body>
+
+</html>

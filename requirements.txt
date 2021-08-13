@@ -1,0 +1,12 @@
+flask
+pandas
+gunicorn
+request
+jsonify
+joblib
+json
+numpy
+pickle
+gensim
+sklearn.feature_extraction.text
+sklearn.processing

@@ -1,0 +1,7 @@
+cd Documents/Formation_OC_IML_Adelyce/Projet_5
+
+git add .
+
+git commit -m "message"
+
+git push -u origin main
