@@ -17,7 +17,7 @@ def predict_tag(document):
     return np.array2string(prediction)
 
 
-app = Flask(__name__, template_folder='templates')
+app = Flask(__name__)
 
 class QuestionForm(Form):
     sentence = TextAreaField('', 
