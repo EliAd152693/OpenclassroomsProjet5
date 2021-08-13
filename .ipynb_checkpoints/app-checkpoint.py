@@ -1,7 +1,6 @@
 from flask import Flask, request, jsonify, render_template
 from wtforms import Form, TextAreaField, validators
 import joblib
-import json
 import pandas as pd
 import numpy as np
 import pickle
