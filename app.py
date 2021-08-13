@@ -27,7 +27,7 @@ class QuestionForm(Form):
 @app.route("/", methods=['GET','POST'])
 def index():
     form = QuestionForm(request.form)
-    return render_template('questionform.html', form=form)
+    return render_template('templates/questionform.html', form=form)
 
 
 @app.route("/results", methods=['GET','POST'])
@@ -40,7 +40,7 @@ def results():
                               content = data,
                               prediction = pred)
 
-    return render_template('questionform.html', form=form)
+    return render_template('templates/questionform.html', form=form)
 
 
 if __name__ == "__main__":
