@@ -10,6 +10,13 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn import preprocessing
 
 def predict_tag(document):
+    nlp_model = open('pkl_objects/model.pkl', 'rb')
+    model = joblib.load(nlp_model)
+    tfidf_model = open('pkl_objects/tfidf.pkl', 'rb')
+    tfidf = joblib.load(tfidf_model)
+    encoder_model = open('pkl_objects/encoder.pkl', 'rb')
+    encoder = joblib.load(encoder_model)
+
     tokenized_input = gensim.utils.simple_preprocess(document, deacc=True)
     tfidf_input = tfidf.transform(tokenized_input)
     num_pred = model.predict(tfidf_input)
@@ -44,10 +51,4 @@ def results():
 
 
 if __name__ == "__main__":
-    nlp_model = open('pkl_objects/model.pkl', 'rb')
-    model = joblib.load(nlp_model)
-    tfidf_model = open('pkl_objects/tfidf.pkl', 'rb')
-    tfidf = joblib.load(tfidf_model)
-    encoder_model = open('pkl_objects/encoder.pkl', 'rb')
-    encoder = joblib.load(encoder_model)
     app.run(debug=True)
