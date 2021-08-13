@@ -24,13 +24,13 @@ class QuestionForm(Form):
                                 [validators.DataRequired(), validators.length(min=15)])
 
     
-@app.route("/")
+@app.route("/", methods=['GET','POST'])
 def index():
     form = QuestionForm(request.form)
     return render_template('questionform.html', form=form)
 
 
-@app.route("/results", methods = ["POST"])
+@app.route("/results", methods=['GET','POST'])
 def results():
     form = QuestionForm(request.form)
     if request.method == 'POST' and form.validate():
