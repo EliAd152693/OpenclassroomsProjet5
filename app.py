@@ -49,6 +49,11 @@ def results():
 
     return render_template('questionform.html', form=form)
 
+@app.route("/api/", methods=['POST'])
+def predict():
+    data = request.get_json()
+    prediction = np.array(predict_tag(data))
+    return jsonify(np.array2string(prediction))
 
 if __name__ == "__main__":
     app.run(debug=True)

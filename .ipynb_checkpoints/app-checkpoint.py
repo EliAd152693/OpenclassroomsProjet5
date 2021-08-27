@@ -10,6 +10,13 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn import preprocessing
 
 def predict_tag(document):
+    nlp_model = open('pkl_objects/model.pkl', 'rb')
+    model = joblib.load(nlp_model)
+    tfidf_model = open('pkl_objects/tfidf.pkl', 'rb')
+    tfidf = joblib.load(tfidf_model)
+    encoder_model = open('pkl_objects/encoder.pkl', 'rb')
+    encoder = joblib.load(encoder_model)
+
     tokenized_input = gensim.utils.simple_preprocess(document, deacc=True)
     tfidf_input = tfidf.transform(tokenized_input)
     num_pred = model.predict(tfidf_input)
@@ -24,13 +31,13 @@ class QuestionForm(Form):
                                 [validators.DataRequired(), validators.length(min=15)])
 
     
-@app.route("/")
+@app.route("/", methods=['GET','POST'])
 def index():
     form = QuestionForm(request.form)
     return render_template('questionform.html', form=form)
 
 
-@app.route("/results", methods = ["POST"])
+@app.route("/results", methods=['GET','POST'])
 def results():
     form = QuestionForm(request.form)
     if request.method == 'POST' and form.validate():
@@ -42,12 +49,11 @@ def results():
 
     return render_template('questionform.html', form=form)
 
+@app.route("/api/", methods=['POST'])
+def predict():
+    data = request.get_json()
+    prediction = np.array(predict_tag(data))
+    return jsonify(np.array2string(prediction))
 
 if __name__ == "__main__":
-    nlp_model = open('pkl_objects/model.pkl', 'rb')
-    model = joblib.load(nlp_model)
-    tfidf_model = open('pkl_objects/tfidf.pkl', 'rb')
-    tfidf = joblib.load(tfidf_model)
-    encoder_model = open('pkl_objects/encoder.pkl', 'rb')
-    encoder = joblib.load(encoder_model)
     app.run(debug=True)
