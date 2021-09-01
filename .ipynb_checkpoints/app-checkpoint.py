@@ -23,6 +23,16 @@ def predict_tag(document):
     prediction = np.array(encoder.inverse_transform(num_pred))
     return np.array2string(prediction)
 
+def predictiontags(message):
+    model = joblib.load(open('pkl_objects/model_multilabelMLP.pkl', 'rb'))
+    tfidf = joblib.load(open('pkl_objects/tfidf.pkl', 'rb'))
+    mess = [simple_preprocess(message)]
+    tfidf_new = tfidf.transform(mess)
+    prediction = model.predict(tfidf_new)
+    dfpredict = pd.DataFrame(list(zip(y.columns, prediction[0])), 
+                             columns =['Tag', 'Prediction'])
+    
+    return list(dfpredict.loc[dfpredict['Prediction']==1]['Tag'])
 
 app = Flask(__name__)
 
@@ -42,7 +52,7 @@ def results():
     form = QuestionForm(request.form)
     if request.method == 'POST' and form.validate():
         data = request.form.get('sentence')
-        pred = predict_tag(data)
+        pred = predictiontags(data)
         return render_template('results.html',
                               content = data,
                               prediction = pred)
